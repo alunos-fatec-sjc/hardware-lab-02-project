@@ -20,9 +20,10 @@ int main()
 	do {
 		printf("\n=====Acendedor de Leds=====\n");
 		printf(" 0. Sair\n");
-		printf(" 1. increment\n");
-		printf(" 2. music\n");
-		printf(" 3. Escolher leds\n");
+		printf(" 1. increment|contador|loucura\n");
+		printf(" 2. music padrão { 11110000, 00001111 }\n");
+		printf(" 3. music padrão 2\n");
+		printf(" 4. Escolher leds\n");
 		printf(" Selecione uma opcao: ");
 
 		scanf("%d", &opcao);
@@ -59,6 +60,29 @@ int main()
 			}
 		}
 		else if (opcao == 3) {
+			int bpm;
+			int count;
+
+			printf("\n bpm: ");
+			scanf("%d", &bpm);
+			printf("\n count: ");
+			scanf("%d", &count);
+
+			int arr[] = { 255, 2, 4, 8, 16, 32, 64, 255, 64, 32, 16, 8, 4, 2 };
+
+			int i = 0;
+			int lenght = sizeof(arr)/sizeof(*arr);
+
+			while(count--) {
+				outb(arr[i++], PORT);
+
+				if (i == lenght) i = 0;
+				usleep((60000 / bpm) * 1000 / lenght * 2);
+			}
+
+			outb(0x00, PORT);
+		}
+		else if (opcao == 4) {
 			unsigned char secondOption;
 
 			do {
@@ -79,6 +103,7 @@ unsigned char chooseLed()
 	unsigned char opcao;
 
 	do {
+		printf("\n Escolha 0 para voltar ao menu.");
 		printf("\n Selecione uma led [unsigned char]: ");
 
 		scanf("%hhu", &opcao);
