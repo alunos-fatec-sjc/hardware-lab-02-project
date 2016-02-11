@@ -1,7 +1,14 @@
+#include <bitset>
+#include <iostream>
 #include <stdio.h>
 #include <sys/io.h>
+#include <unistd.h>
 
 #define PORT 0x378
+
+using namespace std;
+
+unsigned char chooseLed();
 
 int main()
 {
@@ -12,30 +19,55 @@ int main()
 
 	do {
 		printf("\n=====Acendedor de Leds=====\n");
-		printf(" 1. Acender Leds\n");
-		printf(" 2. Apagar Leds\n");
+		printf(" 0. Sair\n");
+		printf(" 1. increment\n");
+		printf(" 2. music\n");
 		printf(" 3. Escolher leds\n");
-		printf(" 4. Sair\n");
 		printf(" Selecione uma opcao: ");
 
 		scanf("%d", &opcao);
 
 		if (opcao == 1) {
-			// caso a opcao seja 1, acende todos os leds pq ce ta
-			// mandand um 0xFF que é 0b111111111 onde cada 1 representa
-			// um led ligado
-			outb(0xFF, PORT);
-		}
-		else if (opcao == 2) {
-			// caso a opcao seja 2, apaga todos os leds pq ce ta
-			// mandand um 0x00 que é 0b000000000 onde cada 0 representa
-			// um led desligado
+			for(unsigned char i = 0x00; i < 0xFF; i++) {
+				outb(i, PORT);
+				usleep(50000);
+			}
 			outb(0x00, PORT);
 		}
-		else if (opcao == 3) {
-			outb(chooseLed(), PORT);
+		else if (opcao == 2) {
+			int bpm;
+			int count;
+
+			printf("\n bpm: ");
+			scanf("%d", &bpm);
+			printf("\n count: ");
+			scanf("%d", &count);
+
+			int i = 0;
+			int lenght = 2;
+			int arr[] = { 1+2+4+8, 128+64+32+16 };
+
+			while(count--) {
+				if (count % 2) {
+					outb(arr[i++], PORT);
+				} else {
+					outb(0x00, PORT);
+				}
+
+				if (i == lenght) i = 0;
+				usleep((60000 / bpm) * 1000 / 2);
+			}
 		}
-	} while (opcao != 4);
+		else if (opcao == 3) {
+			unsigned char secondOption;
+
+			do {
+				secondOption = chooseLed();
+
+				outb(secondOption, PORT);
+			} while (secondOption != 0x00);
+		}
+	} while (opcao != 0);
 
 	outb(0x00, PORT);
 
@@ -44,13 +76,15 @@ int main()
 
 unsigned char chooseLed()
 {
-	unsigned char opcao = 1;
-	printf(" Selecione uma led [unsigned char]: ");
-	scanf("%d", &opcao);
+	unsigned char opcao;
 
-	if (opcao < 0x00 || opcao > 0xFF) {
-		return 0x00;
-	}
+	do {
+		printf("\n Selecione uma led [unsigned char]: ");
+
+		scanf("%hhu", &opcao);
+
+		std::cout << "\n [" << std::bitset<8>((int)opcao) << "]\n";
+	} while (opcao < 0x00 || opcao > 0xFF);
 
 	return opcao;
 }
