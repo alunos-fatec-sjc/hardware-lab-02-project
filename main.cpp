@@ -41,8 +41,9 @@ int main()
 
 			printf("\n bpm: ");
 			scanf("%d", &bpm);
-			printf("\n count: ");
+			printf("\n repetições: ");
 			scanf("%d", &count);
+			printf("\n Aperte Ctrl-C para parar prematuramente e rode o programa novamente");
 
 			int i = 0;
 			int lenght = 2;
@@ -65,8 +66,9 @@ int main()
 
 			printf("\n bpm: ");
 			scanf("%d", &bpm);
-			printf("\n count: ");
+			printf("\n repetições: ");
 			scanf("%d", &count);
+			printf("\n Aperte Ctrl-C para parar prematuramente e rode o programa novamente");
 
 			int arr[] = { 255, 2, 4, 8, 16, 32, 64, 255, 64, 32, 16, 8, 4, 2 };
 
