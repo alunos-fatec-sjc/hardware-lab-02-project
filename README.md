@@ -3,9 +3,9 @@
 Para baixar e instalar o software:
 
 ```bash
-git clone https://github.com/vhoyer/lab-hard-parallel-port-wow
+git clone https://github.com/vhoyer/led-lighter
 
-cd lab-hard-parallel-port-wow
+cd led-lighter
 
 make
 
