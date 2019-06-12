@@ -1,5 +1,9 @@
 # LED Lighter
 
+Requisitos:
+- um sistema linux para rodar o programa
+- `g++` (o CLI para compilar o programa)
+
 Para baixar e instalar o software:
 
 ```bash
