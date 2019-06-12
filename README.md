@@ -1,4 +1,4 @@
-# Cpp LED
+# LED Lighter
 
 Para baixar e instalar o software:
 
