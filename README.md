@@ -29,3 +29,7 @@ sudo ./program
 Para usar o programa, siga as instruções descritas na tela, no caso da
 opção 2 e 3, as musicas, para parar a instrução aperte Ctrl-C e rode o
 programa novamente.
+
+## Para usar esse programa no windows
+
+As alterações que deverão ser feitas são provavelmente na lista de bibliotecas importadas e na interface delas (como você chama cada função), muito provavelmente vai existir um equivalente para cada função usada, ainda assim, recomendo o uso do linux, até o lubuntu, que é bem leve, e vai rodar bem em qualquer computador que vocês consigam montar.
